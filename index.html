@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TESTING VERCEL x CLOUDFLARE</title>
+    <style>
+        body {
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 80px;
+            color: #ff00ff;
+            text-shadow: 5px 5px #00ffff, -5px -5px #ffff00, 10px 10px #ff0000;
+            animation: guncang 0.1s infinite, warna 0.5s infinite;
+            text-transform: uppercase;
+        }
+
+        .status {
+            background: yellow;
+            color: red;
+            font-weight: bold;
+            font-size: 24px;
+            padding: 10px;
+            border: 5px dashed blue;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        marquee {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: lime;
+            color: black;
+            font-weight: bold;
+            font-size: 30px;
+        }
+
+        @keyframes guncang {
+            0% { transform: translate(0,0) rotate(0); }
+            50% { transform: translate(5px, 5px) rotate(2deg); }
+            100% { transform: translate(-5px, -5px) rotate(-2deg); }
+        }
+
+        @keyframes warna {
+            0% { color: #ff00ff; }
+            33% { color: #00ffff; }
+            66% { color: #ffff00; }
+            100% { color: #ff00ff; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>HALOO RIJAL!!!</h1>
+        <div class="status">
+            WEB TESTING VERCEL x CLOUDFLARE SUDAH JALAN!!! 🔥🔥🔥
+        </div>
+    </div>
+
+    <marquee scrollamount="20">MENYALA ABANGKU!!! 🚀 DOMAIN MY.ID SUDAH KONEK!!! 🚀 AWOWKWKWK 🚀</marquee>
+
+</body>
+</html>
+
