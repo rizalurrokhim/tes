@@ -3,77 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANJAY WROK</title>
+    <title>RIJAL, KAMU TERKEJUT???</title>
     <style>
         body {
-            background-color: #000;
+            background: radial-gradient(circle, #000 0%, #1a1a1a 100%);
+            color: #fff;
+            font-family: 'Courier New', monospace;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             overflow: hidden;
-            font-family: 'Courier New', Courier, monospace;
+            perspective: 1000px;
         }
 
-        .container {
+        #suprise-container {
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        h1 {
-            font-size: 80px;
+        #secret-text {
+            font-size: 50px;
+            font-weight: bold;
             color: #ff00ff;
-            text-shadow: 5px 5px #00ffff, -5px -5px #ffff00, 10px 10px #ff0000;
-            animation: guncang 0.1s infinite, warna 0.5s infinite;
             text-transform: uppercase;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #ffff00;
+            animation: breathe 2s ease-in-out infinite, pulse-shadow 1s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .status {
-            background: yellow;
-            color: red;
-            font-weight: bold;
-            font-size: 24px;
-            padding: 10px;
-            border: 5px dashed blue;
-            display: inline-block;
-            margin-top: 20px;
+        #secret-text:hover {
+            transform: scale(1.1) rotate(-5deg);
+            color: #00ffff;
+            text-shadow: 0 0 15px #ff00ff, 0 0 30px #ffff00;
         }
 
-        marquee {
+        .cube-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 15s linear infinite;
+        }
+
+        .cube-face {
+            width: 200px;
+            height: 200px;
             position: absolute;
-            bottom: 0;
-            width: 100%;
-            background: lime;
-            color: black;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed lime;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: yellow;
             font-weight: bold;
-            font-size: 30px;
+            text-transform: uppercase;
+            box-sizing: border-box;
+            backface-visibility: visible; /* Penting untuk efek transparan */
         }
 
-        @keyframes guncang {
-            0% { transform: translate(0,0) rotate(0); }
-            50% { transform: translate(5px, 5px) rotate(2deg); }
-            100% { transform: translate(-5px, -5px) rotate(-2deg); }
+        /* Penempatan Sisi Kubus */
+        .front  { transform: rotateY(  0deg) translateZ(100px); border-color: red; color: red; }
+        .back   { transform: rotateY(180deg) translateZ(100px); border-color: blue; color: blue; }
+        .right  { transform: rotateY( 90deg) translateZ(100px); border-color: magenta; color: magenta; }
+        .left   { transform: rotateY(-90deg) translateZ(100px); border-color: cyan; color: cyan; }
+        .top    { transform: rotateX( 90deg) translateZ(100px); border-color: yellow; color: yellow; }
+        .bottom { transform: rotateX(-90deg) translateZ(100px); border-color: lime; color: lime; }
+
+        @keyframes rotateCube {
+            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
         }
 
-        @keyframes warna {
-            0% { color: #ff00ff; }
-            33% { color: #00ffff; }
-            66% { color: #ffff00; }
-            100% { color: #ff00ff; }
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
+
+        @keyframes pulse-shadow {
+            0%, 100% { text-shadow: 0 0 10px #00ffff, 0 0 20px #ffff00; }
+            50% { text-shadow: 0 0 20px #00ffff, 0 0 40px #ffff00, 0 0 60px #ff00ff; }
+        }
+
+        /* Area Kejutan Tambahan */
+        #interactive-area {
+            font-size: 18px;
+            color: lime;
+            margin-top: 30px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        #interact-count {
+            color: yellow;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>HALOO BANG HEHE :3</h1>
-        <div class="status">
-            ANJAY WROK AWOWKWKWKWKWKWKWK....... 🔥🔥🔥
+    <div id="suprise-container">
+        <div id="secret-text">RIJAL, KAMU TERKEJUT???</div>
+
+        <div class="cube-container">
+            <div class="cube-face front">Kios Citra</div>
+            <div class="cube-face back">Abadi</div>
+            <div class="cube-face right">Menyala</div>
+            <div class="cube-face left">Abangku</div>
+            <div class="cube-face top">Vercel</div>
+            <div class="cube-face bottom">Cloudflare</div>
+        </div>
+
+        <div id="interactive-area">
+            KEJUTAN SELANJUTNYA: JANGAN KLIK DI SINI! (Sudah diklik: <span id="interact-count">0</span> kali)
         </div>
     </div>
 
-    <marquee scrollamount="20">INI BUKAN IKLAN JUDOL 🚀 INI BUKAN IKLAN JUDOL 🚀 INI BUKAN IKLAN JUDOL 🚀</marquee>
+    <script>
+        // Sedikit JavaScript biar makin 'ajaib'
+        
+        // 1. Teks Rahasia Berinteraksi
+        const secretText = document.getElementById('secret-text');
+        secretText.addEventListener('click', () => {
+            alert('awoawkawoawkawo! Kamu mengkliknya! Ini dia kejutannya: ... (Gak ada apa-apa, bercanda)');
+            document.body.style.background = `radial-gradient(circle, #000 0%, ${'#' + Math.floor(Math.random()*16777215).toString(16)} 100%)`;
+        });
 
+        // 2. Penghitung Interaksi
+        let count = 0;
+        const interactiveArea = document.getElementById('interactive-area');
+        const interactCount = document.getElementById('interact-count');
+
+        interactiveArea.addEventListener('click', () => {
+            count++;
+            interactCount.innerText = count;
+            if (count === 1) {
+                alert('Heh! Katanya jangan diklik! awoawkawoawkawo');
+            } else if (count === 5) {
+                alert('Masih ngeyel aja! awoawkawoawkawo');
+                // Efek norak sementara
+                document.body.style.transform = 'scale(0.8) rotate(5deg)';
+                setTimeout(() => {
+                    document.body.style.transform = 'scale(1) rotate(0deg)';
+                }, 500);
+            } else if (count === 10) {
+                alert('Oke, oke... ini kejutan beneran. Liat ke kubus-nya, ada yang berubah? awoawkawoawkawo (Gak ada juga, maaf)');
+                // Tambahkan elemen baru
+                const newText = document.createElement('div');
+                newText.innerText = 'RIJAL PANTANG MENYERAH!';
+                newText.style.color = 'red';
+                newText.style.fontSize = '30px';
+                newText.style.marginTop = '20px';
+                newText.style.animation = 'pulse-shadow 0.5s infinite';
+                document.getElementById('suprise-container').appendChild(newText);
+            }
+        });
+
+    </script>
 </body>
 </html>
-
