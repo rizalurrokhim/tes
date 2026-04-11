@@ -3,213 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rijal | Portfolio Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>Rijal | Cyber Portfolio</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --miku-teal: #39C5BB;
-            --miku-purple: #B35CF3;
-            --bg-dark: #0d1117;
-            --glass-bg: rgba(16, 22, 31, 0.7);
+            --miku-main: #39C5BB;
+            --miku-dark: #00a0a0;
+            --miku-light: #b2ebe7;
+            --glass-white: rgba(255, 255, 255, 0.15);
+            --bg-color: #1a2a2a; /* Dark Teal Base, tidak hitam pekat */
         }
 
         body {
-            background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(57, 197, 187, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(179, 92, 243, 0.1) 0%, transparent 40%);
-            color: #e6edf3;
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
+            background: radial-gradient(circle at top left, #2a4a4a, var(--bg-color));
+            background-attachment: fixed;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
         }
 
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-top: 1px solid rgba(57, 197, 187, 0.3); /* Accent Miku border */
-            border-radius: 16px;
+        /* Ornamen Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -10%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: var(--miku-main);
+            filter: blur(150px);
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .glass-panel {
+            background: var(--glass-white);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            border-color: var(--miku-main);
+        }
+
+        .miku-text {
+            color: var(--miku-main);
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 3px solid var(--miku-main);
+            box-shadow: 0 0 20px rgba(57, 197, 187, 0.4);
+        }
+
+        /* Custom Progress Bar */
+        .skill-container { margin-bottom: 1.5rem; }
+        .progress {
+            background: rgba(255, 255, 255, 0.1);
+            height: 8px;
+            border-radius: 10px;
+            overflow: visible;
+        }
+        .progress-bar {
+            background: linear-gradient(90deg, var(--miku-dark), var(--miku-main));
+            border-radius: 10px;
+            position: relative;
+        }
+        .progress-bar::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 0 10px var(--miku-main);
+        }
+
+        /* Tags ala Miku */
+        .miku-tag {
+            background: rgba(57, 197, 187, 0.15);
+            color: var(--miku-main);
+            border: 1px solid var(--miku-main);
+            padding: 5px 15px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin: 4px;
+        }
+
+        .btn-miku {
+            background: var(--miku-main);
+            color: #1a2a2a;
+            border: none;
+            border-radius: 14px;
+            padding: 12px 30px;
+            font-weight: 700;
             transition: all 0.3s ease;
         }
 
-        .glass-card:hover {
-            border-top: 1px solid var(--miku-purple);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        .btn-miku:hover {
+            background: #fff;
+            color: var(--miku-main);
+            box-shadow: 0 0 25px rgba(57, 197, 187, 0.5);
+            transform: translateY(-3px);
         }
 
-        .miku-gradient-text {
-            background: linear-gradient(90deg, var(--miku-teal), var(--miku-purple));
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--miku-main), #fff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .skill-badge {
-            background: rgba(57, 197, 187, 0.1);
-            border: 1px solid rgba(57, 197, 187, 0.3);
-            color: var(--miku-teal);
-            padding: 4px 12px;
-            border-radius: 99px;
-            font-size: 0.85rem;
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .miku-button {
-            background: linear-gradient(135deg, var(--miku-teal), var(--miku-purple));
-            color: white;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .miku-button:hover {
-            opacity: 0.9;
-            box-shadow: 0 0 15px rgba(57, 197, 187, 0.4);
-        }
-
-        /* Scrollbar ala QQDL */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--miku-teal); }
+        .animate-in { animation: fadeIn 0.8s ease forwards; }
     </style>
 </head>
-<body class="py-10 px-4 md:px-0">
+<body class="py-5">
 
-    <div class="max-w-4xl mx-auto space-y-8">
-        
-        <header class="glass-card p-8 flex flex-col md:flex-row items-center gap-6">
-            <div class="relative">
-                <img src="https://via.placeholder.com/150" alt="Profile" class="w-32 h-32 rounded-2xl object-cover ring-2 ring-[#39C5BB]/50 shadow-2xl">
-                <div class="absolute -bottom-2 -right-2 bg-[#39C5BB] p-2 rounded-lg shadow-lg">
-                    <i data-lucide="verified" class="w-5 h-5 text-white"></i>
-                </div>
-            </div>
-            <div class="text-center md:text-left flex-1">
-                <h1 class="text-4xl font-bold miku-gradient-text">Rijal</h1>
-                <p class="text-gray-400 mt-2 flex items-center justify-center md:justify-start gap-2 text-lg">
-                    <i data-lucide="code-2" class="w-5 h-5"></i> Fullstack Enthusiast & Server Manager
-                </p>
-                <div class="flex flex-wrap justify-center md:justify-start gap-2 mt-4">
-                    <span class="skill-badge">Universitas Student</span>
-                    <span class="skill-badge">Papua, ID</span>
-                    <span class="skill-badge">Hatsune Miku Fan</span>
-                </div>
-            </div>
-        </header>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="container">
+        <div class="row g-4">
             
-            <section class="glass-card p-6">
-                <div class="flex items-center gap-3 mb-6">
-                    <i data-lucide="terminal" class="text-[#39C5BB]"></i>
-                    <h2 class="text-xl font-semibold uppercase tracking-widest text-gray-300">Programming</h2>
-                </div>
-                <div class="space-y-4">
-                    <div>
-                        <div class="flex justify-between text-sm mb-1">
-                            <span>Python (Flask/Django)</span>
-                            <span class="text-[#39C5BB]">85%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-1.5">
-                            <div class="bg-[#39C5BB] h-1.5 rounded-full" style="width: 85%"></div>
-                        </div>
+            <div class="col-lg-4 animate-in">
+                <div class="glass-panel text-center h-100">
+                    <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=500" alt="Profile" class="profile-img mb-4">
+                    <h1 class="miku-text mb-1">RIJAL</h1>
+                    <p class="opacity-75 mb-4 text-uppercase fw-bold small">System Developer & Music Enthusiast</p>
+                    
+                    <div class="d-flex flex-wrap justify-content-center mb-4">
+                        <span class="miku-tag">University Student</span>
+                        <span class="miku-tag">Papua</span>
+                        <span class="miku-tag">Japanese Media</span>
+                        <span class="miku-tag">Termux Pro</span>
                     </div>
-                    <div>
-                        <div class="flex justify-between text-sm mb-1">
-                            <span>JavaScript (Node.js/React)</span>
-                            <span class="text-[#39C5BB]">75%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-1.5">
-                            <div class="bg-[#39C5BB] h-1.5 rounded-full" style="width: 75%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-sm mb-1">
-                            <span>HTML5 & Tailwind CSS</span>
-                            <span class="text-[#39C5BB]">90%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-1.5">
-                            <div class="bg-[#39C5BB] h-1.5 rounded-full" style="width: 90%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-sm mb-1 text-gray-500">
-                            <span>C++ / Java (Learning)</span>
-                            <span>40%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-1.5">
-                            <div class="bg-gray-600 h-1.5 rounded-full" style="width: 40%"></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            <section class="glass-card p-6 text-gray-300">
-                <div class="flex items-center gap-3 mb-6">
-                    <i data-lucide="server" class="text-[#B35CF3]"></i>
-                    <h2 class="text-xl font-semibold uppercase tracking-widest">Infrastructure</h2>
+                    <hr class="border-secondary opacity-25 my-4">
+                    
+                    <div class="text-start">
+                        <h6 class="fw-bold mb-3"><i class="fa-solid fa-link me-2"></i>Connect</h6>
+                        <div class="d-grid gap-2">
+                            <a href="https://yuuto.my.id" class="btn btn-miku"><i class="fa-solid fa-globe me-2"></i>Visit Main Site</a>
+                            <a href="#" class="btn btn-outline-light border-secondary rounded-4"><i class="fa-brands fa-github me-2"></i>GitHub</a>
+                        </div>
+                    </div>
                 </div>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-[#39C5BB]"></i> Linux / Termux Environment</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-[#39C5BB]"></i> Cloudflare Tunneling (Argo)</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-[#39C5BB]"></i> SSH & Remote Management</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-[#39C5BB]"></i> Git / GitHub Workflow</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-[#39C5BB]"></i> Database (SQLite / MongoDB)</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-[#39C5BB]"></i> Local AI Generation (Stable Diffusion)</li>
-                </ul>
-            </section>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="row g-4">
+                    <div class="col-12 animate-in" style="animation-delay: 0.2s">
+                        <div class="glass-panel">
+                            <h3 class="miku-text mb-3">About Me</h3>
+                            <p class="opacity-75 leading-relaxed">
+                                Mahasiswa tingkat akhir yang berfokus pada efisiensi sistem. Mengubah keterbatasan perangkat menjadi keunggulan melalui optimasi server lokal dan otomasi. Sangat menyukai detail audio Hi-Res dan estetika visual Hatsune Miku.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 animate-in" style="animation-delay: 0.3s">
+                        <div class="glass-panel h-100">
+                            <i class="fa-solid fa-code card-icon"></i>
+                            <h4 class="fw-bold mb-4">Development</h4>
+                            
+                            <div class="skill-container">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="small fw-bold">Python / Flask</span>
+                                    <span class="small opacity-50">85%</span>
+                                </div>
+                                <div class="progress"><div class="progress-bar" style="width: 85%"></div></div>
+                            </div>
+
+                            <div class="skill-container">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="small fw-bold">Node.js</span>
+                                    <span class="small opacity-50">70%</span>
+                                </div>
+                                <div class="progress"><div class="progress-bar" style="width: 70%"></div></div>
+                            </div>
+
+                            <div class="skill-container">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="small fw-bold">Database Management</span>
+                                    <span class="small opacity-50">75%</span>
+                                </div>
+                                <div class="progress"><div class="progress-bar" style="width: 75%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 animate-in" style="animation-delay: 0.4s">
+                        <div class="glass-panel h-100">
+                            <i class="fa-solid fa-microchip card-icon"></i>
+                            <h4 class="fw-bold mb-4">Infrastructure</h4>
+                            <ul class="list-unstyled opacity-75">
+                                <li class="mb-3"><i class="fa-solid fa-terminal me-2 text-info"></i> Termux Environment Expert</li>
+                                <li class="mb-3"><i class="fa-solid fa-cloud me-2 text-info"></i> Cloudflare Tunnel & DNS</li>
+                                <li class="mb-3"><i class="fa-solid fa-shield-halved me-2 text-info"></i> SSH & Remote Terminal</li>
+                                <li class="mb-3"><i class="fa-solid fa-box-open me-2 text-info"></i> Server Inventory Systems</li>
+                                <li class="mb-3"><i class="fa-solid fa-robot me-2 text-info"></i> Local AI Implementation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-12 animate-in" style="animation-delay: 0.5s">
+                        <div class="glass-panel d-flex align-items-center justify-content-between flex-wrap gap-3">
+                            <div>
+                                <h5 class="mb-1 fw-bold">Current Project</h5>
+                                <p class="small opacity-50 mb-0 italic">"Building Kios Citra Abadi Inventory v2.0"</p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="position-relative d-flex h-3 w-3 me-3">
+                                    <span class="animate-ping position-absolute h-100 w-100 rounded-circle bg-info opacity-75"></span>
+                                    <span class="rounded-circle h-3 w-3 bg-info" style="width: 12px; height: 12px; display: block;"></span>
+                                </span>
+                                <span class="fw-bold text-info">Working Solo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <section class="glass-card p-8">
-            <h2 class="text-2xl font-bold mb-6 miku-gradient-text">Other Capabilities</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                <div class="p-4 rounded-xl bg-white/5 border border-white/10">
-                    <i data-lucide="layout" class="mx-auto mb-2 opacity-70"></i>
-                    <p class="text-xs uppercase font-bold">UI Design</p>
-                </div>
-                <div class="p-4 rounded-xl bg-white/5 border border-white/10">
-                    <i data-lucide="headphones" class="mx-auto mb-2 opacity-70"></i>
-                    <p class="text-xs uppercase font-bold">Audio Hi-Res</p>
-                </div>
-                <div class="p-4 rounded-xl bg-white/5 border border-white/10">
-                    <i data-lucide="languages" class="mx-auto mb-2 opacity-70"></i>
-                    <p class="text-xs uppercase font-bold">Translation</p>
-                </div>
-                <div class="p-4 rounded-xl bg-white/5 border border-white/10">
-                    <i data-lucide="gamepad-2" class="mx-auto mb-2 opacity-70"></i>
-                    <p class="text-xs uppercase font-bold">Game Analysis</p>
-                </div>
-            </div>
-        </section>
-
-        <footer class="text-center space-y-6">
-            <div class="flex flex-col md:flex-row justify-center items-center gap-4">
-                <a href="https://yuuto.my.id" class="miku-button group">
-                    Visit Main Website
-                    <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                
-                <a href="#" class="px-8 py-3 rounded-12 border border-white/20 hover:bg-white/5 transition flex items-center gap-2">
-                    <i data-lucide="github" class="w-5 h-5"></i> GitHub Repo
-                </a>
-            </div>
-            
-            <p class="text-gray-500 text-xs tracking-widest uppercase">
-                &copy; 2026 RIJAL • Built with Tailwind & Passion
-            </p>
+        <footer class="mt-5 text-center opacity-25 small">
+            <p>&copy; 2026 RIJAL • 01 PROJECT • HATSUNE MIKU THEMED PORTFOLIO</p>
         </footer>
-
     </div>
 
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
