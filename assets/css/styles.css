@@ -846,34 +846,34 @@ section.active {
   width: 0.1%;
 }
 .progress-line.CSS span::after {
-  content: "96%";
+  content: "0.1%";
 }
 .progress-line.HTML span::after {
-  content: "100%";
+  content: "0.1%";
 }
 .progress-line.JS span::after {
-  content: "88%";
+  content: "0.1%";
 }
 .progress-line.UXML span::after {
-  content: "76%";
+  content: "0.1%";
 }
 .progress-line.MD span::after {
-  content: "85%";
+  content: "0.1%";
 }
 .progress-line.CSharp span::after {
-  content: "90%";
+  content: "0.1%";
 }
 .progress-line.Python span::after {
-  content: "37%";
+  content: "0.1%";
 }
 .progress-line.GDScript span::after {
-  content: "78%";
+  content: "0.1%";
 }
 .progress-line.Bash span::after {
-  content: "86%";
+  content: "0.1%";
 }
 .progress-line.Kotlin span::after {
-  content: "21%";
+  content: "0.1%";
 }
 .progress-line span::before {
   position: absolute;
