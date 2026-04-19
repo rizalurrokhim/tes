@@ -48,28 +48,28 @@ function downloadPDF() {
   }
 }
 
-// Count up funfact boxes
+// Count up funfact boxes edited by gemini
 function countFun() {
-  let funfactBoxes = document.querySelectorAll(".funfacts-box");
-  funfactBoxes.forEach(funfactBox => {
-    funfactBox.querySelectorAll(".counter").forEach(countNum => {
-      var data_to = countNum.getAttribute("data-to");
+  var funfactBoxes = document.querySelectorAll(".funfacts-box");
+  funfactBoxes.forEach(function(funfactBox) {
+    funfactBox.querySelectorAll(".counter").forEach(function(countNum) {
+      var data_to = parseInt(countNum.getAttribute("data-to"));
       var duration = parseInt(countNum.getAttribute("data-time"));
-        var value = 0;
-        let counts = setInterval(updated, duration - (value));
-        let counts2 = setInterval(updated2, 80);
+      var current_val = 0;
+      
+      // Hitung speed: makin besar durasi, makin lambat jalannya
+      var speed = duration / data_to;
 
-        function updated(){
-          countNum.innerText = parseInt(countNum.innerText) + value++;
-          if( parseInt(countNum.innerText) >= data_to ) clearInterval(counts);
+      var counts = setInterval(function() {
+        current_val++;
+        countNum.innerText = current_val;
+        
+        if (current_val >= data_to) {
+          clearInterval(counts);
         }
-
-        function updated2(){
-          countNum.innerText++;
-          if( parseInt(countNum.innerText) >= data_to ) clearInterval(counts2);
-        }
+      }, speed);
     });
-  })
+  });
 }
 
 function mailTo() {
