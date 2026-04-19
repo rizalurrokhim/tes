@@ -50,21 +50,28 @@ function downloadPDF() {
 
 // Count up funfact boxes edited by gemini
 function countFun() {
-  var funfactBoxes = document.querySelectorAll(".funfacts-box");
-  funfactBoxes.forEach(function(funfactBox) {
-    funfactBox.querySelectorAll(".counter").forEach(function(countNum) {
+  let funfactBoxes = document.querySelectorAll(".funfacts-box");
+  funfactBoxes.forEach(funfactBox => {
+    funfactBox.querySelectorAll(".counter").forEach(countNum => {
+      // 1. Ambil target angka (1, 50, 20)
       var data_to = parseInt(countNum.getAttribute("data-to"));
+      // 2. Ambil durasi animasi
       var duration = parseInt(countNum.getAttribute("data-time"));
-      var current_val = 0;
       
-      // Hitung speed: makin besar durasi, makin lambat jalannya
-      var speed = duration / data_to;
+      // 3. PAKSA angka di layar jadi 0 dulu sebelum animasi mulai
+      var current_value = 0;
+      countNum.innerText = current_value;
 
-      var counts = setInterval(function() {
-        current_val++;
-        countNum.innerText = current_val;
-        
-        if (current_val >= data_to) {
+      // 4. Hitung kecepatan (durasi total dibagi target angka)
+      // Kalau data_to nya kecil (seperti 1), kita kasih delay standar biar gak kecepatan
+      var speed = data_to > 0 ? duration / data_to : duration;
+
+      let counts = setInterval(function() {
+        current_value++;
+        countNum.innerText = current_value;
+
+        // 5. Berhenti pas di target
+        if (current_value >= data_to) {
           clearInterval(counts);
         }
       }, speed);
