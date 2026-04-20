@@ -1407,3 +1407,31 @@ ul.container {
 div.projects > div.row {
   width: 100%;
 }
+
+/* Efek Fade untuk Foto Profil */
+.image-crossfade {
+  position: relative;
+  display: inline-block;
+}
+
+.image-crossfade img {
+  display: block;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.image-crossfade .img-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: auto;
+}
+
+.image-crossfade.show-second .img-1 {
+  opacity: 0;
+}
+
+.image-crossfade.show-second .img-2 {
+  opacity: 1;
+}

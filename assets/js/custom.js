@@ -128,3 +128,12 @@ fancybox_items.forEach(item => {
     currentA.appendChild(currentButton);
   }
 });
+//change picture fade
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(function() {
+    const container = document.querySelector('.image-crossfade');
+    if (container) {
+      container.classList.add('show-second');
+    }
+  }, 5000);
+});
